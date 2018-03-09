@@ -37,7 +37,6 @@ public class IcePathTag extends SimpleTagSupport {
             Class<? extends Object> class2 = request.getClass();
             if ("org.apache.catalina.core.ApplicationHttpRequest".equals(class2.getName())) {
                 Field declaredFieldApp = null;
-                Class<?> superclass = class2.getSuperclass();
                 declaredFieldApp = IceReflectUtil.getField(class2, "request");
                 try {
                     declaredFieldApp.setAccessible(true);
