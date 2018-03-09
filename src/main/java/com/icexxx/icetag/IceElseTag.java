@@ -8,10 +8,15 @@ public class IceElseTag extends BodyTagSupport {
 
     @Override
     public int doStartTag() throws JspException {
-        Boolean value = IceIfTagValue.getValue();
+        Boolean value = IceIfTagValue.get(this.pageContext.getPage() + "");
+        boolean useIf = true;
+        if (value == null) {
+            value = IceTestTagValue.get(this.pageContext.getPage() + "");
+        }
+        IceIfTagValue.put(this.pageContext.getPage() + "", null);
+        IceTestTagValue.put(this.pageContext.getPage() + "", null);
         if (value != null) {
             if (!value) {
-                IceIfTagValue.setValue(value);
                 return BodyTagSupport.EVAL_BODY_INCLUDE;
             } else {
                 return BodyTagSupport.SKIP_BODY;

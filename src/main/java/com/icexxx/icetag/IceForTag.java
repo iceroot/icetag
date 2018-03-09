@@ -2,11 +2,15 @@ package com.icexxx.icetag;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
@@ -27,7 +31,7 @@ public class IceForTag extends SimpleTagSupport {
                 if (str.contains(",")) {
                     list = str.split(",");
                 } else {
-                    list = getJspContext().getAttribute(str);
+                    list = getAttribute(this.getJspContext(), str);
                     if (list == null) {
                         list = new String[] { str };
                     }
@@ -59,6 +63,56 @@ public class IceForTag extends SimpleTagSupport {
             }
             getJspBody().invoke(null);
             indexNum++;
+        }
+    }
+
+    private Object getAttribute(JspContext jspContext, String keyName) {
+        if (jspContext != null) {
+            Class<? extends JspContext> class1 = jspContext.getClass();
+            Field declaredField = null;
+            try {
+                declaredField = class1.getDeclaredField("request");
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+            Object request = null;
+            try {
+                declaredField.setAccessible(true);
+                request = declaredField.get(jspContext);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            Class<? extends Object> class2 = request.getClass();
+            Method method = null;
+            try {
+                method = class2.getDeclaredMethod("getAttribute", String.class);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+            method.setAccessible(true);
+            Object value = null;
+            try {
+                value = method.invoke(request, keyName);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            if (value == null) {
+                return new String[] { keyName };
+            } else {
+                return value;
+            }
+        } else {
+            return null;
         }
     }
 

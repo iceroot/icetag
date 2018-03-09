@@ -27,14 +27,16 @@ public class IceIfTag extends BodyTagSupport {
     @Override
     public int doStartTag() throws JspException {
         if (_if != null) {
-            IceIfTagValue.setValue(_if);
+            IceIfTagValue.put(this.pageContext.getPage() + "", _if);
+            IceTestTagValue.put(this.pageContext.getPage() + "", null);
             if (_if) {
                 return BodyTagSupport.EVAL_BODY_INCLUDE;
             } else {
                 return BodyTagSupport.SKIP_BODY;
             }
         } else if (test != null) {
-            IceIfTagValue.setValue(test);
+            IceTestTagValue.put(this.pageContext.getPage() + "", test);
+            IceIfTagValue.put(this.pageContext.getPage() + "", null);
             if (test) {
                 return BodyTagSupport.EVAL_BODY_INCLUDE;
             } else {

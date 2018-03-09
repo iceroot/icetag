@@ -78,4 +78,14 @@
             <rtexprvalue>false</rtexprvalue>
         </attribute>
     </tag>
+    <tag>
+        <name>path</name>
+        <tag-class>com.icexxx.icetag.IcePathTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>name</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>

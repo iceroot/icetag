@@ -2,11 +2,11 @@ package com.icexxx.icetag;
 
 import java.util.Hashtable;
 
-public class IceIfTagValue {
+public class IceTestTagValue {
     private static Hashtable<String, Boolean> full = new Hashtable<String, Boolean>();
     private static Hashtable<String, Boolean> simple = new Hashtable<String, Boolean>();
 
-    public static void put(String key, Boolean value) {
+    public synchronized static void put(String key, Boolean value) {
         if (value == null) {
             full.remove(key);
         } else {
@@ -23,7 +23,7 @@ public class IceIfTagValue {
 
     }
 
-    public static Boolean get(String key) {
+    public synchronized static Boolean get(String key) {
         Boolean value = full.get(key);
         if (value == null) {
             String simpleKey = key.substring(0, key.lastIndexOf("@"));
