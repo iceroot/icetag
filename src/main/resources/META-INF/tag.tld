@@ -5,7 +5,7 @@
     version="2.0">
     <description>A tag library exercising SimpleTag handlers.</description>
     <display-name>icetag</display-name>
-    <tlib-version>1.0</tlib-version>
+    <tlib-version>1.2</tlib-version>
     <short-name>i</short-name>
     <uri>/ice</uri>
     <tag>
@@ -84,6 +84,36 @@
         <body-content>empty</body-content>
         <attribute>
             <name>name</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>format</name>
+        <tag-class>com.icexxx.icetag.IceFormatTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>precision</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>roundingMode</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>nullToEmpty</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>natural</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
